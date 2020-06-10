@@ -32,4 +32,8 @@ export class OrdersComponent implements OnInit {
             });
     }
 
+    filterChanged(event) {
+
+    }
+
 }

@@ -1,0 +1,109 @@
+.customer-form input[type='text'], 
+.customer-form input[type='number'],
+.customer-form input[type='email'],
+.customer-form select {
+    width:100%;
+}
+
+:host {
+    display: block;
+    padding-top: 20px;
+}
+
+.customer-form .ng-invalid {
+  border-left: 5px solid #a94442;
+}
+
+.customer-form .ng-valid {
+  border-left: 5px solid #42A948;
+}
+
+.add-order {
+    margin: 25px 0 20px 0;
+    display: inline-block;
+    font-size: 15px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.add-order span:first-of-type {
+    color: #027FF4;
+}
+
+.disabled  {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.order-count {
+    font-weight: bold;
+    display: inline;
+    margin-left: 10px;
+}
+
+.order-group {
+    padding:10px 0;
+}
+
+
+.order-delete {
+    position: absolute;
+    right: 20px;
+    top: 38px;
+    display: none;
+}
+
+.orders-list:hover .order-delete {
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown, .orders-list{
+    position: relative;
+    width: 110%;
+    padding-right: 10%;
+}
+
+.dropdown .dropdown-panel {
+    position: absolute;
+    width: 100%;
+    max-height: 300px;
+    box-shadow: 0px 0px 3px 1px rgb(205, 205, 205);
+    background-color: #fff;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.dropdown .dropdown-panel div {
+    color: #5cb85c;
+    padding: 10px;
+    font-family: sans-serif;
+    font-weight: 500;
+}
+
+.dropdown .dropdown-panel div:not(.selected):hover {
+    background-color: rgba(186, 226, 240, 0.733);
+    cursor: pointer;
+    }
+
+
+.dropdown .dropdown-panel .selected {
+    color: #469edf;
+    background-color: #c7dceb85;
+}
+
+
+.inputs-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 5px;
+}
+
+.alert {
+    margin-bottom: 0px;
+}
+
+label {
+    text-transform: capitalize;
+    color: #4f4f4f;
+}

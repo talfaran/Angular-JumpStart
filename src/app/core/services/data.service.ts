@@ -106,6 +106,11 @@ export class DataService {
         }
     }
 
+    addOrdersToCustomer(value): Observable<ICustomer> {
+        return this.http.post<ICustomer>(this.ordersBaseUrl + '/new', value)
+            .pipe(catchError(this.handleError));
+    }
+
     // Not using now but leaving since they show how to create
     // and work with custom observables
 

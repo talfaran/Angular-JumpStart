@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, ElementRef } from '@angular/core';
 import { ActivatedRouteSnapshot, ActivatedRoute, UrlSegment, Params, Data, Route, ParamMap } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
@@ -34,6 +34,10 @@ export class MockDataService {
 
     getCustomers(): Observable<ICustomer[]> {
         return of(customers);
+    }
+
+    addOrdersToCustomer(value) {
+        return of(true);
     }
 }
 
@@ -434,3 +438,31 @@ export const customers = [
         'longitude': -43.181836
     }
 ];
+
+
+export class MockLoggerService {
+    constructor() { }
+    log(err) {
+    }
+
+}
+
+export class MockRouterrService {
+    constructor() { }
+
+    navigateByUrl(url) {
+    }
+}
+
+export class MockelementrefService extends ElementRef {
+    constructor() {
+    super(null);
+    }
+}
+
+export class MockModalService {
+    constructor() {}
+    show(value) {
+
+    }
+}
