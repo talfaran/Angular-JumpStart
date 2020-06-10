@@ -1,0 +1,36 @@
+.UX-helper-container {
+    animation: MoveUpDown 4s linear infinite;
+    background-color: black;
+    border-radius: 8px;
+    position: absolute;
+    max-width: 280px;
+    min-height: 75px;
+    right: 0;
+    padding: 25px;
+    transform: translate(100%, -50%);
+    color: white;
+    top: 50%;
+    z-index: 1;
+    font-size: 16px;
+
+}
+
+.side-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 10px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-right: 14px solid black;
+    left: -12px;
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+      top: 10px;
+    }
+    50% {
+      top: 25px;
+    }
+  }

@@ -19,6 +19,7 @@
 }
 
 .add-order {
+    position: relative;
     margin: 25px 0 20px 0;
     display: inline-block;
     font-size: 15px;

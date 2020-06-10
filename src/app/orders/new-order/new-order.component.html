@@ -4,39 +4,41 @@
         <div class="dropdown">
             <input  type="text" #autocomplete  id="dropdown-input" 
             [value]="form.get('customer').value?.firstName ? form.get('customer').value?.firstName + ' ' +  form.get('customer').value?.lastName : form.get('customer')?.value" 
-            (click)="openPanel()" class="form-control "
+            (click)="openPanel()" class="form-control"
                 formControlName="customer">
             <div class="dropdown-panel" *ngIf="isDropdownPanelOpen">
                 <div [class.selected]="customer?.id === form.get('customer').value?.id" (click)="onOptionClicked(customer)" *ngFor="let customer of finalCustomers$ | async">
                        {{customer?.firstName}} {{customer?.lastName}}
                 </div>
             </div>
+            <cm-ux-helper *ngIf="!form.get('customer').touched && !form.get('customer').valid">Pick a customer to enable <br> adding products</cm-ux-helper>
         </div>
         <div class="alert alert-danger" *ngIf="form.get('customer').touched && !form.get('customer').valid">Picking a
             customer from the list is required </div>
 
     </div>
 
-    <div class="add-order" (click)="addOrder()" [class.disabled]="formArr.length >= 5 || !form.get('customer').valid">
+    <div class="add-order" data-cy="order" (click)="addOrder()" [class.disabled]="formArr.length >= 5 || !form.get('customer').valid">
         <span>+ add product</span>
         <span class="order-count">
             ( {{formArr.length}} / 5 )
         </span>
+
     </div>
 
     <div class="orders-list" *ngFor="let order of formArr.controls;let i=index">
         <div class="form-group customer-form order-group" [formGroup]="order">
             <label>{{ordersEnum[i]}} Product</label>
-            <div class="inputs-grid">
+            <div class="inputs-grid" data-cy="i">
 
                 <div class="input-container">
-                    <input type="text" class="form-control" formControlName="productName" placeholder="Name">
+                    <input type="text" id="name{{i}}" class="form-control" formControlName="productName" placeholder="Name">
                     <div class="alert alert-danger"
                         *ngIf="order.get('productName').touched && !order.get('productName').valid">Prive is mandatory
                     </div>
                 </div>
                 <div class="inpur-container">
-                    <input type="text" class="form-control" formControlName="itemCost" placeholder="Price">
+                    <input type="text" id="price{{i}}" class="form-control" formControlName="itemCost" placeholder="Price">
                     <div class="alert alert-danger"
                         *ngIf="order.get('itemCost').touched && !order.get('itemCost').valid">
                         <span *ngIf="order.get('itemCost').hasError('required')">Price is required</span>
@@ -53,5 +55,5 @@
     </div>
 </form>
 
-<button type="button" (click)="submitOrder()" class="btn btn-success" *ngIf="formArr.length"
+<button data-cy="button-submit" type="button" (click)="submitOrder()" class="btn btn-success" *ngIf="formArr.length"
     [class.disabled]="form.pristine || !form.valid">Submit order</button>
