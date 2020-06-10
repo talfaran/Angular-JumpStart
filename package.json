@@ -23,12 +23,13 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "body-parser": "^1.19.0",
     "core-js": "^2.5.4",
+    "express": "^4.17.1",
+    "opn": "^6.0.0",
     "rxjs": "~6.5.3",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "express": "^4.17.1",
-    "body-parser": "^1.19.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.0",
@@ -42,6 +43,7 @@
     "angular-playground": "^7.0.0",
     "codelyzer": "^5.1.2",
     "concurrently": "^5.1.0",
+    "cypress": "^4.8.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.2.0",
@@ -56,7 +58,6 @@
     "typescript": "~3.7.5"
   },
   "optionalDependencies": {
-    "cypress": "^4.3.0",
     "@bahmutov/add-typescript-to-cypress": "^2.1.2"
   }
 }
