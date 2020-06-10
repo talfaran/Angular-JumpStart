@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, iif, of } from 'rxjs';
+import { map, catchError, switchMap, tap } from 'rxjs/operators';
 
 import { ICustomer, IOrder, IState, IPagedResults, IApiResponse } from '../../shared/interfaces';
 import { UtilitiesService } from './utilities.service';
@@ -14,8 +14,8 @@ export class DataService {
     ordersBaseUrl = this.baseUrl + '/api/orders';
     orders: IOrder[];
     states: IState[];
-
-    constructor(private http: HttpClient, private utilitiesService: UtilitiesService) {  }
+    chachedCustomers: ICustomer[];
+    constructor(private http: HttpClient, private utilitiesService: UtilitiesService) { }
 
     getCustomersPage(page: number, pageSize: number): Observable<IPagedResults<ICustomer[]>> {
         return this.http.get<ICustomer[]>(
@@ -35,15 +35,20 @@ export class DataService {
             );
     }
 
+
     getCustomers(): Observable<ICustomer[]> {
-        return this.http.get<ICustomer[]>(this.customersBaseUrl)
-            .pipe(
-                map(customers => {
-                    this.calculateCustomersOrderTotal(customers);
-                    return customers;
-                }),
-                catchError(this.handleError)
-            );
+        return of(this.chachedCustomers).pipe(
+            switchMap(() => this.chachedCustomers ? of(this.chachedCustomers) :
+                this.http.get<ICustomer[]>(this.customersBaseUrl).pipe(
+                    tap((customers) => this.chachedCustomers = customers)
+                )
+            ),
+            map((customers) => {
+                this.calculateCustomersOrderTotal(customers);
+                return customers;
+            }),
+            catchError(this.handleError)
+        );
     }
 
     getCustomer(id: number): Observable<ICustomer> {
@@ -123,6 +128,6 @@ export class DataService {
     //         observer.complete();
     //     });
     // }
-    
+
 
 }

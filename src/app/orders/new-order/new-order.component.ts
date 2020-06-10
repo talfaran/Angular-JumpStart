@@ -58,7 +58,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     this.InitialCustomers$ = this.dataService.getCustomers();
     this.filteredCustomers$ = this.InitialCustomers$.pipe(
       map((_customers) => {
-        const search = this.form.get('customer').value.toLowerCase();
+        const search = this.autoCompleteInput.nativeElement.value.toLowerCase();
         return _customers.filter(customer => `${customer.firstName} ${customer.lastName}`.toLowerCase().includes(search));
       }
       ));
@@ -71,7 +71,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       switchMap(() => this.filteredCustomers$)
     );
 
-    this.finalCustomers$ = concat(this.InitialCustomers$, searchCusomers$);
+    this.finalCustomers$ = concat(this.filteredCustomers$, searchCusomers$);
   }
 
   openPanel() {
