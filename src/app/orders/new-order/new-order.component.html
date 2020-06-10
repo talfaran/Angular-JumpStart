@@ -18,7 +18,7 @@
     </div>
 
     <div class="add-order" (click)="addOrder()" [class.disabled]="formArr.length >= 5 || !form.get('customer').valid">
-        <span>+ add an Order</span>
+        <span>+ add product</span>
         <span class="order-count">
             ( {{formArr.length}} / 5 )
         </span>
@@ -26,7 +26,7 @@
 
     <div class="orders-list" *ngFor="let order of formArr.controls;let i=index">
         <div class="form-group customer-form order-group" [formGroup]="order">
-            <label>{{ordersEnum[i]}} order</label>
+            <label>{{ordersEnum[i]}} Product</label>
             <div class="inputs-grid">
 
                 <div class="input-container">
