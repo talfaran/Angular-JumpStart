@@ -34,7 +34,7 @@
                 <div class="input-container">
                     <input type="text" id="name{{i}}" class="form-control" formControlName="productName" placeholder="Name">
                     <div class="alert alert-danger"
-                        *ngIf="order.get('productName').touched && !order.get('productName').valid">Prive is mandatory
+                        *ngIf="order.get('productName').touched && !order.get('productName').valid">Name is required
                     </div>
                 </div>
                 <div class="inpur-container">
