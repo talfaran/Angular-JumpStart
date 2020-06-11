@@ -1,6 +1,6 @@
 # Angular JumpStart - enhancement
 
-The goal of this jumpstart-enhancement is to add the cuntionality of adding new orders for a specific customer in the origin Jumpstart app.
+The goal of this jumpstart-enhancement is to add the funtionality of adding new orders for a specific customer in the origin Jumpstart app.
 
 ## Running the Application
 
