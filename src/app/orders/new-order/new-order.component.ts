@@ -1,11 +1,9 @@
 import { Component, OnInit, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from 'src/app/core/services/data.service';
 import { ICustomer } from 'src/app/shared/interfaces';
 import { Observable, fromEvent, concat } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, filter, map, tap } from 'rxjs/operators';
-import { customers } from 'src/app/shared/mocks';
-import { noop } from '@angular/compiler/src/render3/view/util';
+import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { CustomValidatorsService } from 'src/app/shared/services/custom-validators.service';
 import { IModalContent, ModalService } from 'src/app/core/modal/modal.service';
 import { Router } from '@angular/router';
@@ -26,9 +24,8 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
     3: 'forth',
     4: 'fifth'
   };
-  InitialCustomers$: Observable<ICustomer[]>;
   filteredCustomers$: Observable<ICustomer[]>;
-  finalCustomers$: Observable<ICustomer[]>;;
+  finalCustomers$: Observable<ICustomer[]>;
   isDropdownPanelOpen = false;
   @ViewChild('autocomplete') autoCompleteInput: ElementRef;
   constructor(
@@ -55,8 +52,7 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.InitialCustomers$ = this.dataService.getCustomers();
-    this.filteredCustomers$ = this.InitialCustomers$.pipe(
+    this.filteredCustomers$ = this.dataService.getCustomers().pipe(
       map((_customers) => {
         const search = this.autoCompleteInput.nativeElement.value.toLowerCase();
         return _customers.filter(customer => `${customer.firstName} ${customer.lastName}`.toLowerCase().includes(search));
@@ -113,7 +109,6 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       return order;
     });
     this.form.get('customer').setValue(this.form.get('customer').value.id);
-    console.log(this.form.value);
     this.dataService.addOrdersToCustomer(this.form.value).subscribe(() => {
       this.form.markAsPristine();
       this.router.navigateByUrl('/orders');
@@ -126,7 +121,6 @@ export class NewOrderComponent implements OnInit, AfterViewInit {
       return true;
     }
 
-    // Dirty show display modal dialog to user to confirm leaving
     const modalContent: IModalContent = {
       header: 'Lose Unsaved Changes?',
       body: 'You have unsaved changes! Would you like to leave the page and lose them?',

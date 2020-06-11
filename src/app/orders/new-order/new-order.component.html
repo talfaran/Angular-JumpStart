@@ -2,23 +2,26 @@
     <div class="form-group customer-form ">
         <label>Customer's Name</label>
         <div class="dropdown">
-            <input  type="text" #autocomplete  id="dropdown-input" 
-            [value]="form.get('customer').value?.firstName ? form.get('customer').value?.firstName + ' ' +  form.get('customer').value?.lastName : form.get('customer')?.value" 
-            (click)="openPanel()" class="form-control"
-                formControlName="customer">
+            <input type="text" #autocomplete id="dropdown-input"
+                [value]="form.get('customer').value?.firstName ? form.get('customer').value?.firstName + ' ' +  form.get('customer').value?.lastName : form.get('customer')?.value"
+                (click)="openPanel()" class="form-control" formControlName="customer">
             <div class="dropdown-panel" *ngIf="isDropdownPanelOpen">
-                <div [class.selected]="customer?.id === form.get('customer').value?.id" (click)="onOptionClicked(customer)" *ngFor="let customer of finalCustomers$ | async">
-                       {{customer?.firstName}} {{customer?.lastName}}
+                <div [class.selected]="customer?.id === form.get('customer').value?.id"
+                    (click)="onOptionClicked(customer)" *ngFor="let customer of finalCustomers$ | async">
+                    {{customer?.firstName}} {{customer?.lastName}}
                 </div>
             </div>
-            <cm-ux-helper *ngIf="!form.get('customer').touched && !form.get('customer').valid">Pick a customer to enable <br> adding products</cm-ux-helper>
+            <cm-ux-helper *ngIf="!form.get('customer').touched && !form.get('customer').valid">Pick a customer to enable
+                <br> adding products</cm-ux-helper>
         </div>
-        <div class="alert alert-danger" *ngIf="form.get('customer').touched && !form.get('customer').valid">Picking a
-            customer from the list is required </div>
+        <div class="alert alert-danger" *ngIf="form.get('customer').touched && !form.get('customer').valid">
+            <span>Picking a customer from the list is required </span>
+        </div>
 
     </div>
 
-    <div class="add-order" data-cy="order" (click)="addOrder()" [class.disabled]="formArr.length >= 5 || !form.get('customer').valid">
+    <div class="add-order" data-cy="order" (click)="addOrder()"
+        [class.disabled]="formArr.length >= 5 || !form.get('customer').valid">
         <span>+ add product</span>
         <span class="order-count">
             ( {{formArr.length}} / 5 )
@@ -32,13 +35,16 @@
             <div class="inputs-grid" data-cy="i">
 
                 <div class="input-container">
-                    <input type="text" id="name{{i}}" class="form-control" formControlName="productName" placeholder="Name">
+                    <input type="text" id="name{{i}}" class="form-control" formControlName="productName"
+                        placeholder="Name">
                     <div class="alert alert-danger"
-                        *ngIf="order.get('productName').touched && !order.get('productName').valid">Name is required
+                        *ngIf="order.get('productName').touched && !order.get('productName').valid">
+                        <span>Name is required</span>
                     </div>
                 </div>
                 <div class="inpur-container">
-                    <input type="text" id="price{{i}}" class="form-control" formControlName="itemCost" placeholder="Price">
+                    <input type="text" id="price{{i}}" class="form-control" formControlName="itemCost"
+                        placeholder="Price">
                     <div class="alert alert-danger"
                         *ngIf="order.get('itemCost').touched && !order.get('itemCost').valid">
                         <span *ngIf="order.get('itemCost').hasError('required')">Price is required</span>
@@ -49,8 +55,9 @@
         </div>
         <div class="order-delete" (click)="removeOrder(i)">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26">
-              <path fill="#F15151" fill-rule="evenodd" d="M20.437 7.296v14.26c0 1.542-1.212 2.802-2.721 2.851l-.091.001H6.375c-1.52 0-2.763-1.23-2.811-2.76l-.002-.092V7.296h16.875zm-5.625-5.704v1.426h7.032V5.87H2.156V3.018h7.031V1.592h5.626z"/>
-          </svg>
+                <path fill="#F15151" fill-rule="evenodd"
+                    d="M20.437 7.296v14.26c0 1.542-1.212 2.802-2.721 2.851l-.091.001H6.375c-1.52 0-2.763-1.23-2.811-2.76l-.002-.092V7.296h16.875zm-5.625-5.704v1.426h7.032V5.87H2.156V3.018h7.031V1.592h5.626z" />
+            </svg>
         </div>
     </div>
 </form>
